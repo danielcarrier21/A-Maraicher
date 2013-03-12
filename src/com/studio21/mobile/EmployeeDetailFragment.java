@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.studio21.mobile.dummy.DummyContent;
@@ -72,10 +73,35 @@ public class EmployeeDetailFragment extends Fragment
 			Log.d(TAG, "EmployeeDetailFragment-onCreateView: setting view");
 			
 			TextView employeeName = (TextView) rootView.findViewById(R.id.employeeName);
-			TextView employeeQte = (TextView) rootView.findViewById(R.id.qte);
+			final TextView employeeQte = (TextView) rootView.findViewById(R.id.qte);
 			
 			employeeName.setText(employee.getPrenom() + " " + employee.getNom());
 			employeeQte.setText(Integer.toString(employee.getQte()));
+			
+			// Incrémenter
+			Button btnAdd = (Button)rootView.findViewById(R.id.qteAdd);
+			btnAdd.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					int newQte = Integer.parseInt(employeeQte.getText().toString()) + 1;
+					employeeQte.setText(Integer.toString(newQte));
+					employee.setQte(newQte);
+				}
+			});
+			
+			Button btnSubstract = (Button)rootView.findViewById(R.id.qteSubstract);
+			btnSubstract.setOnClickListener(new View.OnClickListener()
+			{			
+				@Override
+				public void onClick(View v)
+				{
+					int newQte = Integer.parseInt(employeeQte.getText().toString()) - 1;
+					employeeQte.setText(Integer.toString(newQte));
+					employee.setQte(newQte);
+				}
+			});
 		}
 		
 		Log.d(TAG, "EmployeeDetailFragment-onCreateView: returning view");
