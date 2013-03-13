@@ -3,5 +3,6 @@
 
     <string name="app_name">A-Maraicher</string>
     <string name="title_employee_detail">Employee Detail</string>
+    <string name="data_employees_filename">data_employees</string>
 
 </resources>

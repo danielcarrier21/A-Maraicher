@@ -69,6 +69,24 @@ public class Employee
 		Qte = qte;
 	}
 	
+	public JSONObject toJSONObject()
+	{
+		JSONObject jsonObj = new JSONObject();
+		try
+		{
+			jsonObj.put("prenom", Prenom);
+			jsonObj.put("nom", Nom);
+			jsonObj.put("qte", Qte);
+			jsonObj.put("fruit", Fruit);
+			jsonObj.put("champ", Champ);
+		} 
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return jsonObj;
+	}
+	
 	public static ArrayList<Employee> JsonToArrayList(JSONArray jsonArr)
 	{
 		ArrayList<Employee> Employees = new ArrayList<Employee>();

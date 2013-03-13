@@ -1,5 +1,9 @@
 package com.studio21.mobile;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 
 import com.studio21.mobile.dummy.DummyContent;
 import com.studio21.mobile.models.Employee;
+import com.studio21.mobile.helper.*;
 
 /**
  * A fragment representing a single Employee detail screen. This fragment is
@@ -106,5 +111,24 @@ public class EmployeeDetailFragment extends Fragment
 		
 		Log.d(TAG, "EmployeeDetailFragment-onCreateView: returning view");
 		return rootView;
+	}
+	
+	@Override
+	public void onPause()
+	{
+		Log.d(TAG, "EmployeeDetailFragment: onPause");
+		
+		super.onPause();
+		
+		JSONArray jsonArr = new JSONArray();
+		
+		for(Employee empl : EmployeeListFragment.Employees)
+		{
+			JSONObject obj = empl.toJSONObject();
+			jsonArr.put(obj);
+		}
+		
+		Log.d(TAG, "EmployeeDetailFragment-onPause: Employees data = " + jsonArr.toString());
+		Storage.writeToInternal(getActivity(), getString(R.string.data_employees_filename), jsonArr.toString());
 	}
 }

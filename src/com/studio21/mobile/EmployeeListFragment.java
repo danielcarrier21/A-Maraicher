@@ -20,8 +20,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.studio21.mobile.dummy.DummyContent;
+import com.studio21.mobile.helper.Communication;
 import com.studio21.mobile.helper.CustomAdapter;
 import com.studio21.mobile.helper.JsonDataDownloadTask;
+import com.studio21.mobile.helper.Storage;
 import com.studio21.mobile.models.Employee;
 
 /**
@@ -121,18 +123,31 @@ public class EmployeeListFragment extends ListFragment implements IToFragmentCom
 		
 		try
 		{
-			if(Employees == null && isConnected())
+			if(Employees == null)
 			{
-				Log.d(TAG, "EmployeeListFragment: getting data");
-				AsyncTask response = new JsonDataDownloadTask().execute("http://www.html5.angularsamurai.com/employees.json");
-				JSONArray jsonArr = new JSONArray(response.get().toString());
-				Employees = Employee.JsonToArrayList(jsonArr);
-			}
-			else
-			{
-				sendToast("Device is not connected");
-			}
-			
+				JSONArray jsonArr;
+				
+				if(Storage.fileExistsInternal(ctx, ctx.getString(R.string.data_employees_filename) ))
+				{
+					Log.d(TAG, "EmployeeListFragment: getting data from FILE");
+					jsonArr = new JSONArray(Storage.readFromInternal(ctx, ctx.getString(R.string.data_employees_filename)));
+					Employees = Employee.JsonToArrayList(jsonArr);
+				}
+				else
+				{
+					if(isConnected())
+					{
+						Log.d(TAG, "EmployeeListFragment: getting data from URL");
+						AsyncTask response = new JsonDataDownloadTask().execute("http://www.html5.angularsamurai.com/employees.json");
+						jsonArr = new JSONArray(response.get().toString());
+						Employees = Employee.JsonToArrayList(jsonArr);
+					}
+					else
+					{
+						Communication.sendToast(ctx, "Device is not connected");
+					}	
+				}			
+			}		
 		} 
 		catch (JSONException e)
 		{
@@ -147,12 +162,6 @@ public class EmployeeListFragment extends ListFragment implements IToFragmentCom
 			Log.e(TAG, e.getMessage());
 		}
 		
-		if(Employees != null)
-			Log.d(TAG, "EmployeeListFragment-onCreate: ArrayList is not null, counting " + Employees.size() + " items");
-		else
-			Log.d(TAG, "EmployeeListFragment-onCreate: ArrayList is null");
-		
-		// TODO: replace with a real list adapter.
 		setListAdapter(new CustomAdapter(Employees, R.layout.employee_list_item, getActivity()));
 		
 		Log.d(TAG, "EmployeeListFragment-onCreate: ListAdapter is set");

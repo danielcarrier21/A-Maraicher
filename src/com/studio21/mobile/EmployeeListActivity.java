@@ -67,6 +67,8 @@ public class EmployeeListActivity extends FragmentActivity implements IToActivit
 		}
 	}
 
+	
+	
 	/**
 	 * Callback method from {@link EmployeeListFragment.Callbacks} indicating
 	 * that the item with the given ID was selected.
@@ -99,13 +101,4 @@ public class EmployeeListActivity extends FragmentActivity implements IToActivit
 			startActivity(detailIntent);
 		}
 	}
-
-	/**
-	@Override
-	public void passDataToActivity(Object data)
-	{
-		Employee empl = (Employee)data;
-		
-	}
-	*/
 }

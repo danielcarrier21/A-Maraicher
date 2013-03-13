@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class JsonDataDownloadTask extends AsyncTask
 {
-private final String TAG = "M-Log";
+private final String TAG = "A-Log";
 	
 	private Object getJSONData(String url) 
 	{	
