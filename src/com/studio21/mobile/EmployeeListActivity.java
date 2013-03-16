@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 
+import com.studio21.mobile.helper.Communication;
 import com.studio21.mobile.helper.JsonDataDownloadTask;
 import com.studio21.mobile.models.Employee;
 
@@ -15,6 +16,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 /**
@@ -67,7 +71,30 @@ public class EmployeeListActivity extends FragmentActivity implements IToActivit
 		}
 	}
 
-	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		Log.d(TAG, "EmployeeListActivity: onOptionsItemSelected");
+		
+		switch(item.getItemId()){
+		case R.id.item_add:
+			Intent addIntent = new Intent(this, EmployeeAddActivity.class);
+			startActivity(addIntent);
+			return true;
+		case R.id.item_sync:
+			Communication.sendToast(this, "Sync data");
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}	
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.activity_menu, menu);
+	    return true;
+	}
 	
 	/**
 	 * Callback method from {@link EmployeeListFragment.Callbacks} indicating
@@ -93,6 +120,7 @@ public class EmployeeListActivity extends FragmentActivity implements IToActivit
 		} 
 		else
 		{
+			
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
 			Log.d(TAG, "EmployeeListActivity-onItemSelected: selectedIndex = " + selectedIndex);

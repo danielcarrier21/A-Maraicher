@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item 	android:id="@+id/item_sync" 
+        	android:title="Sync"
+        	android:icon="@drawable/content_import_export"></item>
+    <item 	android:id="@+id/item_add" 
+        	android:title="Add"
+        	android:icon="@drawable/social_add_person"></item>
+    
+
+</menu>

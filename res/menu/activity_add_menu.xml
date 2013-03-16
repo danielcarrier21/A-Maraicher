@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/item_save" android:showAsAction="ifRoom" android:title="Save" android:icon="@drawable/accept"></item>
+    <item android:id="@+id/item_cancel" android:showAsAction="ifRoom" android:title="Cancel" android:icon="@drawable/cancel"></item>
+    
+
+</menu>

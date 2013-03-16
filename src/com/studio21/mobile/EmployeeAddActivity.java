@@ -7,27 +7,17 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
-/**
- * An activity representing a single Employee detail screen. This activity is
- * only used on handset devices. On tablet-size devices, item details are
- * presented side-by-side with a list of items in a {@link EmployeeListActivity}
- * .
- * <p>
- * This activity is mostly just a 'shell' activity containing nothing more than
- * a {@link EmployeeDetailFragment}.
- */
-public class EmployeeDetailActivity extends FragmentActivity
+public class EmployeeAddActivity extends FragmentActivity
 {
-
 	private final String TAG = "A-Log";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		Log.d(TAG, "EmployeeDetailActivity: onCreate");
+		Log.d(TAG, "EmployeeAddActivity: onCreate");
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_employee_detail);
+		setContentView(R.layout.activity_employee_add);
 
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,16 +33,13 @@ public class EmployeeDetailActivity extends FragmentActivity
 		//
 		if (savedInstanceState == null)
 		{
-			Log.d(TAG, "EmployeeDetailActivity: savedInstanceState is null");
-			Log.d(TAG, "Selected employee = " + getIntent().getStringExtra("selectedEmployee"));
+			Log.d(TAG, "EmployeeAddActivity-onCreate: savedInstanceState is null");
+
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString("selectedEmployee", getIntent().getStringExtra("selectedEmployee"));
-			EmployeeDetailFragment fragment = new EmployeeDetailFragment();
-			fragment.setArguments(arguments);
+			EmployeeAddFragment fragment = new EmployeeAddFragment();
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.employee_detail_container, fragment).commit();
+					.add(R.id.employee_add_container, fragment).commit();
 		}
 	}
 
@@ -74,4 +61,5 @@ public class EmployeeDetailActivity extends FragmentActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

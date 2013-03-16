@@ -77,7 +77,7 @@ public class EmployeeDetailFragment extends Fragment
 		{
 			Log.d(TAG, "EmployeeDetailFragment-onCreateView: setting view");
 			
-			TextView employeeName = (TextView) rootView.findViewById(R.id.employeeName);
+			TextView employeeName = (TextView) rootView.findViewById(R.id.newEmployeeName);
 			final TextView employeeQte = (TextView) rootView.findViewById(R.id.qte);
 			
 			employeeName.setText(employee.getPrenom() + " " + employee.getNom());
